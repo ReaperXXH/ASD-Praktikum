@@ -1,3 +1,8 @@
+// Bab				: BFS dan DFS
+// Nama			    : Davin Kenaz Widiananda Tappo
+// NIM				: 235150301111026
+// Kelas            : Teknik Komputer B
+
 #include <iostream>
 #include <string>
 #include <vector>
