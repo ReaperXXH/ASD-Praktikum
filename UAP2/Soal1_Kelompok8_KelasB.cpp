@@ -10,6 +10,7 @@ public:
     int counter;
     char owner[100];
 
+    // Membuat node baru
     Node(const char* name, bool folder, const char* owner) 
         : is_directory(folder), counter(0) {
         int i = 0;
@@ -27,12 +28,14 @@ public:
         this->owner[i] = '\0';
     }
 
+    // Menambah child baru ke node
     void add_child(Node* child) {
         if (counter < 100) {
             children[counter++] = child;
         }
     }
 
+    // Menghapus child
     void remove_child(Node* child) {
         int index = -1;
         for (int i = 0; i < counter; i++) {
@@ -49,6 +52,7 @@ public:
         }
     }
 
+    // Menampilkan daftar child
     void list_children(bool detail) {
         for (int i = 0; i < counter; i++) {
             Node* child = children[i];
@@ -62,6 +66,7 @@ public:
         }
     }
 
+    // Menelusuri sistem file
     void traverse(const char* indent = "") {
         cout << indent << name << (is_directory ? "/" : "") << endl;
         char new_indent[100];
@@ -80,6 +85,7 @@ public:
         }
     }
 
+    // Mencari file atau direktori dengan DFS
     const char* search(const char* name, const char* path = "") {
         static char found_path[1000];
         int name_len = 0;
@@ -143,6 +149,7 @@ private:
     char owner[100];
 
 public:
+    // Membuat sistem file baru
     FileSystem(const char* owner) {
         int i = 0;
         while (owner[i] != '\0') {
@@ -155,16 +162,19 @@ public:
         current_node = root;
     }
 
+    // Membuat file baru di direktori
     void make_file(const char* name) {
         Node* new_file = new Node(name, false, owner);
         current_node->add_child(new_file);
     }
 
+    // Membuat direktori baru di direktori
     void make_directory(const char* name) {
         Node* new_directory = new Node(name, true, owner);
         current_node->add_child(new_directory);
     }
 
+    // Mengubah direktori saat ini
     void change_directory(const char* path) {
         int path_len = 0;
         while (path[path_len] != '\0') {
@@ -191,6 +201,7 @@ public:
         }
     }
 
+    // Menghapus file atau direktori
     void remove(const char* name) {
         int name_len = 0;
         while (name[name_len] != '\0') {
@@ -213,14 +224,17 @@ public:
         cout << "File or Directory not found" << endl;
     }
 
+    // Menampilkan isi direktori
     void list_current_directory(bool detail = false) {
         current_node->list_children(detail);
     }
 
+    // Menelusuri sistem file
     void traverse_file_system() {
         root->traverse();
     }
 
+    // Mencari file di seluruh sistem file
     void search_file(const char* name) {
         const char* result = root->search(name, "");
         if (result) {
@@ -237,7 +251,7 @@ int main() {
     char name[100];
     char path[100];
 
-    // Create default structure
+    // Isi default
     fs.make_directory("lib");
     fs.make_directory("src");
     fs.change_directory("lib");
